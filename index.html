@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Planificador de la 2ª Feria Internacional del Libro de Celaya 2026: qué ver en cada horario, tu ruta del día y compártela.">
+<meta property="og:title" content="Ruta FILCEL 2026">
+<meta property="og:description" content="264 actividades del 29 de septiembre al 4 de octubre. Arma tu ruta sin choques de horario.">
+<meta name="theme-color" content="#c2185b">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Ruta FILCEL 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: cabecera fija con días; columna de programa por horarios; panel "Mi plan" lateral en escritorio y pestaña en móvil. */
+:root{
+  --bg:#f6eef1; --surface:#fffafb; --surface2:#f0e4ea; --ink:#2e1020; --ink2:#6b4a5c; --line:#e3cfd9;
+  --accent:#c2185b; --accent-ink:#ffffff; --gold:#a86f00; --gold-bg:#fbeecb; --ok:#1f7a5a; --friend:#3563c9;
+  --display:'Montserrat',system-ui,sans-serif; --serif:'Newsreader',Georgia,serif;
+}
+/* Tema claro por defecto; el oscuro solo cuando la persona lo elige con el botón. */
+:root{color-scheme:light}
+:root[data-app="dark"]{
+  --bg:#170b12; --surface:#231019; --surface2:#2f1723; --ink:#f7e9f0; --ink2:#c9a5b8; --line:#4a2a3b;
+  --accent:#ff6fa5; --accent-ink:#2a0716; --gold:#f2b84b; --gold-bg:#3b2b0c; --ok:#5fd3a6; --friend:#8fb0ff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,'Segoe UI',sans-serif;padding-inline:16px;padding-block:0 84px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:1080px;margin-inline:auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin-inline:-16px;padding:10px 16px 8px;border-bottom:1px solid var(--line)}
+.brandrow{display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;flex:1;min-width:0}
+.iconbtn{flex:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink)}
+.iconbtn svg{width:20px;height:20px}
+.brand h1{font:800 20px/1 var(--display);letter-spacing:.02em;color:var(--accent)}
+.brand span{font:600 12px var(--display);color:var(--ink2)}
+@media (max-width:520px){.brand .long{display:none}.day .mo{display:none}}
+@media (min-width:521px){.brand .short{display:none}}
+.days{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.day{flex:1 0 52px;min-width:52px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 4px 5px;text-align:center;position:relative}
+.day b{display:block;font:800 19px/1.1 var(--display)}
+.day small{display:block;font:600 10.5px var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.day .dots{display:block;height:6px;font-size:0;margin-top:3px}
+.day .dots i{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin:0 1px}
+.day[aria-current=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.day[aria-current=true] small{color:var(--accent-ink);opacity:.85}
+.day[aria-current=true] .dots i{background:var(--accent-ink)}
+.day.past{opacity:.55}
+.day .now{position:absolute;top:-6px;right:4px;background:var(--gold);color:#fff;font:700 9px var(--display);padding:1px 5px;border-radius:6px;letter-spacing:.04em}
+.app{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding-top:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.lbl{font:700 11px var(--display);text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px;font:600 13px var(--display)}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--bg);padding:8px 6px;font:600 13px var(--display);border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.hint{font:italic 14px var(--serif);color:var(--ink2)}
+.heat{display:flex;align-items:flex-end;gap:3px;height:38px;margin:14px 0 4px}
+.heat button{flex:1;min-width:0;border:0;padding:0;background:var(--line);border-radius:3px 3px 0 0;position:relative}
+.heat button.on{background:var(--accent)}
+.heat button.old{opacity:.35}
+.heatlbl{display:flex;justify-content:space-between;font:600 10px var(--display);color:var(--ink2)}
+.dayhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:14px 0 4px}
+.dayhead h2{font:800 22px/1.1 var(--display)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 14px;font:700 13px var(--display);display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px}
+.btn svg{width:18px;height:18px;flex:none}
+.btn:active,.chip:active,.go:active{transform:scale(.97)}
+.btn.big{font-size:15px;padding:13px 20px;border-radius:12px;min-height:50px}
+/* barra de gustos compacta */
+.prefs{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 10px 10px 14px}
+.prefs .txt{flex:1;min-width:0}
+.prefs .k{font:700 11px var(--display);text-transform:uppercase;letter-spacing:.07em;color:var(--ink2)}
+.prefs .v{font:italic 15px/1.3 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.welcome{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px}
+.welcome h2{font:800 21px/1.15 var(--display);text-wrap:balance}
+.welcome p{font:17px/1.4 var(--serif);color:var(--ink2);max-width:52ch}
+.welcome .btn{justify-self:start}
+/* hoja de preferencias */
+.scrim{position:fixed;inset:0;z-index:50;background:rgba(30,6,18,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:560px;max-height:92vh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.sheet .grab{width:44px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 0}
+.sheet header{display:flex;align-items:center;gap:10px;padding:12px 16px 4px}
+.sheet header h2{font:800 20px var(--display);flex:1}
+.sheet .body{overflow:auto;padding:0 16px 12px;overscroll-behavior:contain}
+.sheet footer{border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:grid;gap:8px}
+.sheet footer .btn{width:100%}
+.sheet .chip{padding:9px 14px;font-size:14px}
+@media (min-width:640px){.scrim{align-items:center;padding:24px}.sheet{border-radius:20px;max-height:88vh}.sheet .grab{display:none}}
+@media (prefers-reduced-motion:no-preference){.scrim.anim{animation:fade .2s ease-out}.scrim.anim .sheet{animation:up .24s ease-out}@keyframes up{from{transform:translateY(40px)}to{transform:none}}@keyframes fade{from{background:transparent}}}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.sm{padding:6px 10px;font-size:12px}
+.summary{font:400 16px/1.4 var(--serif);color:var(--ink2);margin-bottom:6px}
+.summary b{color:var(--ink);font-weight:600}
+.amb{display:flex;gap:10px;align-items:center;background:var(--gold-bg);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px}
+.slot{margin-top:18px}
+.slothead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.time{font:800 20px/1 var(--display);background:var(--ink);color:var(--bg);padding:7px 14px 7px 12px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);font-variant-numeric:tabular-nums}
+.slothead .cnt{font:600 12px var(--display);color:var(--ink2);white-space:nowrap}
+.slothead .note{margin-left:auto;text-align:right;font:italic 13px/1.25 var(--serif);color:var(--ink2);min-width:0}
+.slothead .st{margin-left:auto;font:700 12px var(--display);color:var(--ok)}
+/* pasado: gris, tachado, compacto; lo que viene: pleno */
+.tag{display:inline-flex;align-items:center;gap:6px;font:800 10.5px var(--display);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:3px 8px;white-space:nowrap}
+.slothead .tag{margin-left:auto}
+.tag.sm{font-size:9.5px;padding:1px 6px}
+.tag.done{background:var(--surface2);color:var(--ink2);border:1px solid var(--line)}
+.tag.live{background:var(--accent);color:var(--accent-ink)}
+.tag.live i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.tag.next{background:var(--ink);color:var(--bg)}
+.slot.old .time{background:transparent;color:var(--ink2);border:1px dashed var(--line);clip-path:none;border-radius:8px;font-size:16px;padding:5px 10px;text-decoration:line-through;text-decoration-thickness:2px}
+.ev.past{background:transparent;border-style:dashed;box-shadow:none;padding-block:9px}
+.ev.past h3{font-size:15px;font-weight:400;color:var(--ink2);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--ink2) 60%,transparent);text-decoration-thickness:1.5px}
+.ev.past .meta>span:not(.tag){opacity:.75}
+.go.ghost{border:2px dashed var(--line);width:40px;height:40px}
+.go.done{background:var(--line);border-color:var(--line);color:var(--ink2)}
+.why.again{font-style:normal;font-size:13px}
+.why.again .lnk,.why .lnk{border:0;background:none;color:var(--accent);font:700 13px var(--display);padding:0;text-decoration:underline}
+.slot.live .time{background:var(--accent);color:var(--accent-ink)}
+.slot.live .cards{border-left:3px solid var(--accent);padding-left:10px;margin-left:2px}
+.pastbox{width:100%;margin-top:16px;display:flex;align-items:center;gap:10px;text-align:left;border:1px dashed var(--line);background:transparent;border-radius:12px;padding:10px 12px;color:var(--ink2)}
+.pastbox .pt{flex:1;min-width:0;font:italic 14px/1.3 var(--serif)}
+.pastbox .pv{font:700 12px var(--display);color:var(--accent);white-space:nowrap}
+.pastlist{border-bottom:1px dashed var(--line);padding-bottom:14px}
+.pastnote{display:flex;gap:10px;align-items:center;margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--surface2);font:italic 15px/1.35 var(--serif);color:var(--ink2)}
+.cards{display:flex;flex-direction:column;gap:8px}
+.ev{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;position:relative}
+.ev.rec{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.ev.going{background:var(--surface2);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.go{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink2);background:transparent;display:grid;place-items:center;font:800 16px var(--display);color:transparent;flex:none}
+.ev.going .go{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ev .meta{display:flex;flex-wrap:wrap;gap:4px 10px;font:700 10.5px var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.ev h3{font:600 17px/1.28 var(--serif);margin:3px 0 0;text-wrap:balance}
+.ribbon{display:inline-block;font:800 10px var(--display);letter-spacing:.07em;text-transform:uppercase;background:var(--gold);color:#fff;padding:2px 8px;border-radius:5px;margin-bottom:5px}
+:root[data-app=dark] .ribbon{color:#2b1c00}
+.why{font:italic 14px/1.35 var(--serif);color:var(--ink2);margin-top:4px}
+.why b{font-style:normal;color:var(--gold);font-family:var(--display);font-weight:700;font-size:12px}
+.fr{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.fr span{font:700 11px var(--display);background:var(--friend);color:#fff;border-radius:999px;padding:1px 8px}
+:root[data-app=dark] .fr span{color:#0b1530}
+.more{border:0;background:none;font:800 18px/1 var(--display);color:var(--ink2);width:36px;height:36px;border-radius:10px;align-self:start;margin:-4px -4px 0 0}
+.more:hover{background:var(--surface2)}
+.slot,.ev{scroll-margin-top:150px}
+.detail{grid-column:2/4;border-top:1px dashed var(--line);padding-top:8px;font-size:14px;display:grid;gap:6px}
+.detail a,.detail button.lnk{border:0;background:none;color:var(--accent);font:600 14px system-ui,sans-serif;padding:0;text-align:left;text-decoration:underline}
+.tie{font:italic 14px var(--serif);color:var(--ink2);padding:6px 10px;border-left:3px solid var(--gold);margin-bottom:8px}
+.showmore{margin-top:8px;width:100%;border:1px dashed var(--line);background:none;border-radius:10px;padding:9px;font:600 13px var(--display);color:var(--ink2)}
+.plan h2{font:800 20px var(--display);margin-bottom:4px}
+.plan .d{margin-top:14px}
+.plan .d h3{font:800 13px var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.pi{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.pi time{font:800 14px var(--display);font-variant-numeric:tabular-nums}
+.pi .t{font:600 15px/1.3 var(--serif)}
+.pi .v{font:600 11px var(--display);color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
+.gap{font:italic 14px var(--serif);color:var(--ink2);padding:5px 0 5px 60px}
+.share{margin-top:18px;display:grid;gap:8px}
+.share label{font:700 11px var(--display);text-transform:uppercase;letter-spacing:.07em;color:var(--ink2)}
+.share input,.share textarea{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:9px 10px;font:14px system-ui,sans-serif}
+.share textarea{min-height:92px;resize:vertical}
+.frow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.tabbar{position:fixed;inset:auto 0 0 0;z-index:30;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));gap:8px}
+.tabbar button{flex:1;border:0;background:var(--bg);border-radius:12px;padding:10px;font:700 14px var(--display);display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px}
+.tabbar svg{width:18px;height:18px}
+.tabbar button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font:600 13px var(--display);z-index:40;max-width:calc(100% - 32px);text-align:center}
+.foot{margin-top:28px;font-size:12px;color:var(--ink2)}
+body[data-view=plan] #progCol{display:none}
+body:not([data-view=plan]) #planCol{display:none}
+@media (min-width:960px){
+  body{padding-block:0 32px}
+  .app{grid-template-columns:minmax(0,1fr) 360px}
+  body[data-view=plan] #progCol,body:not([data-view=plan]) #planCol{display:block}
+  #planCol{position:sticky;top:calc(118px + env(safe-area-inset-top,0px));align-self:start;max-height:calc(100vh - 140px);overflow:auto}
+  .tabbar{display:none}
+  .toast{bottom:24px}
+}
+@media (prefers-reduced-motion:no-preference){.ev{transition:background .15s,border-color .15s}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brandrow"><div class="brand"><h1>FILCEL 2026</h1><span class="long">Feria del Libro de Celaya · 29 sep – 4 oct · Parque Fundadores 450</span><span class="short">Feria del Libro · Parque Fundadores 450</span></div>
+  <button class="iconbtn" id="themeBtn" data-act="theme"></button></div>
+  <nav class="days" id="days" aria-label="Días de la feria"></nav>
+</header>
+<main class="app">
+  <section id="progCol"></section>
+  <aside id="planCol"></aside>
+</main>
+<p class="foot">Datos del programa oficial de actividades de la 2ª Feria Internacional del Libro de Celaya. El programa está sujeto a cambios sin previo aviso. Se asume una duración de una hora por actividad. Las recomendaciones salen de tus gustos, no de la calidad de cada evento.</p>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Vista"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div id="sheetRoot"></div>
+
+<script>
+const E=[{"i":0,"d":0,"t":"11:00","m":660,"v":"T","y":"sh","n":"Inauguración","g":[],"s":"Arranque oficial de la feria"},{"i":1,"d":0,"t":"12:00","m":720,"v":"T","y":"ch","n":"Charla sobre la lectura con Francisco Hinojosa","g":["oficio"],"s":"Charla de apertura sobre la lectura"},{"i":2,"d":0,"t":"16:00","m":960,"v":"T","y":"pr","n":"Los elefantes mueren de sed de Hiram Ruvalcaba con Carlos René Padilla","g":[]},{"i":3,"d":0,"t":"17:00","m":1020,"v":"T","y":"pr","n":"En contra de las olas y otros ensayos de Tanya Huntington con Iliana Olmedo","g":["ensayo"]},{"i":4,"d":0,"t":"18:00","m":1080,"v":"T","y":"pr","n":"Noche negra de Pilar Quintana con Vicente Alfonso y Carlos René Padilla","g":["narrativa","negra"],"s":"Pilar Quintana; también en el panel del miércoles 18:00"},{"i":5,"d":0,"t":"19:30","m":1170,"v":"T","y":"sh","n":"Paté de Fua","g":["escena"],"s":"Cierre musical de la primera jornada"},{"i":6,"d":0,"t":"10:00","m":600,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":7,"d":0,"t":"11:00","m":660,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":8,"d":0,"t":"13:00","m":780,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":9,"d":0,"t":"14:00","m":840,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":10,"d":0,"t":"16:00","m":960,"v":"F","y":"na","n":"Josemí con Walter Díaz","g":["familia"]},{"i":11,"d":0,"t":"17:00","m":1020,"v":"F","y":"pr","n":"Cornelius y Thelonius de Martín Emmanuel Meza Aguilar con Diana Bastidas y Fedora Farías","g":["familia"]},{"i":12,"d":0,"t":"18:00","m":1080,"v":"F","y":"ch","n":"Leer manga, leer literatura con Hiram Ruvalcaba","g":["oficio"]},{"i":13,"d":0,"t":"16:00","m":960,"v":"S1","y":"pr","n":"Lectura de obra del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Germán Méndez, Carla Torres, Diana Aboytes y Enrique Soriano","g":["oficio"]},{"i":14,"d":0,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"El proceso terapéutico con familias. Propuestas y ejemplos de aplicación. Coordinado por Yazmín Quintero Hernández con Eloy Maya Pérez y Susana Pérez Uribe","g":["ensayo"]},{"i":15,"d":0,"t":"18:00","m":1080,"v":"S1","y":"pr","n":"El museo de los tiempos muertos de Zara Acosta con Jacob D. Silva.","g":[]},{"i":16,"d":0,"t":"15:00","m":900,"v":"S2","y":"pr","n":"Memorias de un hombre impotente de Orval con Raúl Bravo","g":[]},{"i":17,"d":0,"t":"16:00","m":960,"v":"S2","y":"pr","n":"La música del fuego de Fernando Rivera Calderón con Naye Martínez","g":[]},{"i":18,"d":0,"t":"17:00","m":1020,"v":"S2","y":"pr","n":"Me hubiera gustado de Claudia Bravo con Walter Díaz","g":[]},{"i":19,"d":0,"t":"18:00","m":1080,"v":"S2","y":"pr","n":"Es aquí y ahora Frases que cambiarán tu vida de Pablo F. Cabrera","g":[]},{"i":20,"d":0,"t":"11:00","m":660,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":21,"d":0,"t":"16:00","m":960,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":22,"d":0,"t":"17:00","m":1020,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":23,"d":0,"t":"14:00","m":840,"v":"PJ","y":"po","n":"Podcast · Aleida Ocampo","g":[]},{"i":24,"d":0,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · Tanya Huntington","g":[]},{"i":25,"d":0,"t":"16:00","m":960,"v":"PJ","y":"po","n":"Podcast · Vicente Alfonso","g":[]},{"i":26,"d":0,"t":"17:00","m":1020,"v":"PJ","y":"po","n":"Podcast · Nacho Casas","g":[]},{"i":27,"d":0,"t":"18:00","m":1080,"v":"PJ","y":"po","n":"Podcast · Fernando Rivera Calderón","g":[]},{"i":28,"d":0,"t":"16:00","m":960,"v":"AC","y":"ta","n":"Imaginando un monstruo: filosofía para niños con Marco López","g":["familia"]},{"i":29,"d":0,"t":"14:00","m":840,"v":"AG","y":"sh","n":"Presentación de Guitarra Esperanzarte Delicias","g":["escena"]},{"i":30,"d":0,"t":"15:00","m":900,"v":"AG","y":"sh","n":"Presentación de Guitarra Esperanzarte Galaxias del Parque","g":["escena"]},{"i":31,"d":0,"t":"16:00","m":960,"v":"AG","y":"sh","n":"Obra de teatro Esperanzarte San Luis Rey","g":["escena"]},{"i":32,"d":0,"t":"17:00","m":1020,"v":"AG","y":"sh","n":"Obra de Teatro Esperanzarte Álamos","g":["escena"]},{"i":33,"d":0,"t":"18:00","m":1080,"v":"AG","y":"sh","n":"Banda de Rock “Plan C”","g":["escena"]},{"i":34,"d":1,"t":"11:00","m":660,"v":"T","y":"pr","n":"La tigrada de Oswaldo Valdinos y Óscar López","g":["familia"]},{"i":35,"d":1,"t":"12:00","m":720,"v":"T","y":"ch","n":"La imaginación y las letras con Nacho Casas","g":["oficio"]},{"i":36,"d":1,"t":"16:00","m":960,"v":"T","y":"pr","n":"Una Era irrepetible: tres autores dialogan sobre el catálogo editorial con Ernesto Lumbreras, Eduardo Antonio Parra y Luis Jorge Boone","g":[]},{"i":37,"d":1,"t":"17:00","m":1020,"v":"T","y":"pr","n":"Final feliz de Joselo Rangel con BEF","g":[],"s":"Joselo Rangel y BEF"},{"i":38,"d":1,"t":"18:00","m":1080,"v":"T","y":"ch","n":"La memoria del animal herido: Geografías íntimas y violencia con Pilar Quintana, Luis Jorge Boone y Eduardo Antonio Parra. Modera Iliana Olmedo.","g":["narrativa","ensayo","negra"],"s":"Panel con Pilar Quintana y Luis Jorge Boone"},{"i":39,"d":1,"t":"19:30","m":1170,"v":"T","y":"sh","n":"“Un Son para mí Nación” Ballet folclórico del Tecnológico de Celaya y conjunto Son Lince","g":["escena"],"s":"Ballet folclórico y son en el Teatro"},{"i":40,"d":1,"t":"09:00","m":540,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":41,"d":1,"t":"11:00","m":660,"v":"F","y":"ch","n":"No pedí nacer con Mike Zheng","g":["familia"]},{"i":42,"d":1,"t":"12:00","m":720,"v":"F","y":"pr","n":"Cuentos para Abus,Bendis, Michis y Lomitos de Blanca Estela Báez con Raúl Bravo","g":["familia"]},{"i":43,"d":1,"t":"13:00","m":780,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":44,"d":1,"t":"14:00","m":840,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":45,"d":1,"t":"15:00","m":900,"v":"F","y":"fo","n":"Colectivo de artesanos literarios de Apaseo el Alto. Lectura de Obra. Presenta Ramón Granados","g":["familia"]},{"i":46,"d":1,"t":"16:00","m":960,"v":"F","y":"fo","n":"Cuentos para despertar de Raúl Mendoza","g":["familia"]},{"i":47,"d":1,"t":"17:00","m":1020,"v":"F","y":"na","n":"Cuentacuentos con Nacho Casas","g":["familia"]},{"i":48,"d":1,"t":"18:00","m":1080,"v":"F","y":"na","n":"Libera un poema con Natalia Guerra Díaz","g":["poesia","familia"]},{"i":49,"d":1,"t":"11:00","m":660,"v":"S1","y":"pr","n":"Cartas al joven violinista. Breve manual para estudiar sabiamente de Semion Mikitiansky con Raúl Bravo","g":[]},{"i":50,"d":1,"t":"12:00","m":720,"v":"S1","y":"pr","n":"Madres Antología con Vicente Alfonso, Iliana Olmedo y Carlos René Padilla","g":[]},{"i":51,"d":1,"t":"13:00","m":780,"v":"S1","y":"na","n":"Palabras al viento","g":["poesia"]},{"i":52,"d":1,"t":"15:00","m":900,"v":"S1","y":"pr","n":"Por todos los hombres que me quedé esperando me convertí en un ciprés de Rocío G. Benítez","g":[]},{"i":53,"d":1,"t":"16:00","m":960,"v":"S1","y":"pr","n":"El envejecido en resistencia. Coordinado por Eloy Maya Pérez y Jonathan Alejandro Galindo Soto con Yazmín Quintero Hernández","g":["ensayo"]},{"i":54,"d":1,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"Cómo escapar de un bucle temporal? de Anna Goretti Montalvo con Raúl Bravo","g":["narrativa","ciencia"]},{"i":55,"d":1,"t":"18:00","m":1080,"v":"S1","y":"pr","n":"El último camino de Horacio Jara Melesio","g":[]},{"i":56,"d":1,"t":"11:00","m":660,"v":"S2","y":"pr","n":"Salir del bosque de Iliana Olmedo con Eles Durán","g":[]},{"i":57,"d":1,"t":"12:00","m":720,"v":"S2","y":"pr","n":"Domingos liminales de Iván Montenegro","g":[]},{"i":58,"d":1,"t":"13:00","m":780,"v":"S2","y":"pr","n":"Las memorias del fénix de José Herlindo Velázquez","g":[]},{"i":59,"d":1,"t":"15:00","m":900,"v":"S2","y":"ta","n":"Taller de Lectura y Creación Poética del INSMACC. Lectura de obra Presenta Baudelio Camarillo","g":["poesia","oficio"]},{"i":60,"d":1,"t":"16:00","m":960,"v":"S2","y":"pr","n":"En Proceso de Alexis Patiño con Zara Acosta","g":[]},{"i":61,"d":1,"t":"17:00","m":1020,"v":"S2","y":"pr","n":"El apóstol caído de Pedro J. Fernández con José Rentería","g":["ensayo"]},{"i":62,"d":1,"t":"18:00","m":1080,"v":"S2","y":"pr","n":"Presentación del Libro de la Convocatoria de Estímulo Literario","g":["oficio"]},{"i":63,"d":1,"t":"11:00","m":660,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":64,"d":1,"t":"12:00","m":720,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":65,"d":1,"t":"13:00","m":780,"v":"AE","y":"ta","n":"Ocarinas cantarinas","g":["familia"]},{"i":66,"d":1,"t":"16:00","m":960,"v":"AE","y":"ta","n":"Taller de crónica del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Vicente Alfonso","g":["oficio"]},{"i":67,"d":1,"t":"13:00","m":780,"v":"PJ","y":"po","n":"Podcast · Wally","g":[]},{"i":68,"d":1,"t":"14:00","m":840,"v":"PJ","y":"po","n":"Podcast · Iliana Olmedo","g":[]},{"i":69,"d":1,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · Diana Bastidas","g":[]},{"i":70,"d":1,"t":"16:00","m":960,"v":"PJ","y":"po","n":"Podcast · Kike Vázquez y Luz Zenteno","g":[]},{"i":71,"d":1,"t":"17:00","m":1020,"v":"PJ","y":"po","n":"Podcast · Marcos Almada","g":[]},{"i":72,"d":1,"t":"11:00","m":660,"v":"AC","y":"ta","n":"Taller libro cartonero con Jorge Rodríguez","g":[]},{"i":73,"d":1,"t":"15:00","m":900,"v":"AC","y":"ta","n":"Taller libro cartonero con Jorge Rodríguez","g":[]},{"i":74,"d":1,"t":"12:00","m":720,"v":"AG","y":"sh","n":"Baile de salón Esperanzarte DIF","g":["escena"]},{"i":75,"d":1,"t":"16:00","m":960,"v":"AG","y":"sh","n":"Obra de teatro Esperanzarte Álamos","g":["escena"]},{"i":76,"d":1,"t":"18:00","m":1080,"v":"AG","y":"sh","n":"Los Krelboynes y Caramelo Macizo (Rock)","g":["escena"]},{"i":77,"d":2,"t":"11:00","m":660,"v":"T","y":"pr","n":"Parafrasis cerebral de Kike Vázquez y Luz Zenteno con José Rentería","g":[]},{"i":78,"d":2,"t":"12:00","m":720,"v":"T","y":"pr","n":"Domingo Teporingo. Verano de Marcos Almada con Aleida Ocampo","g":[]},{"i":79,"d":2,"t":"16:00","m":960,"v":"T","y":"pr","n":"El llanto del aire de BEF con J.J. Mason","g":[]},{"i":80,"d":2,"t":"17:00","m":1020,"v":"T","y":"pr","n":"La torre de cristal, de Eduardo Antonio Parra y Carlos René Padilla con René López Villamar","g":["narrativa"]},{"i":81,"d":2,"t":"18:00","m":1080,"v":"T","y":"ch","n":"Soundtracks para leer: música y literatura con Arturo López Gavito, Joselo Rangel y Modera:BEF","g":["escena"],"s":"Música y literatura con Joselo Rangel y BEF"},{"i":82,"d":2,"t":"19:30","m":1170,"v":"T","y":"sh","n":"Proyección de Cocodrilos, pelicula nominada al Ariel 2026 con J. Xavier Velasco y Hozé Melendez","g":["negra","escena"],"s":"Película nominada al Ariel 2026"},{"i":83,"d":2,"t":"09:00","m":540,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":84,"d":2,"t":"11:00","m":660,"v":"F","y":"sh","n":"Obra de teatro","g":["escena"]},{"i":85,"d":2,"t":"12:00","m":720,"v":"F","y":"pr","n":"Xiimbal, caminante de las estrellas de Julio Édgar Méndez con Raúl Bravo","g":[]},{"i":86,"d":2,"t":"13:00","m":780,"v":"F","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":87,"d":2,"t":"14:00","m":840,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":88,"d":2,"t":"15:00","m":900,"v":"F","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":89,"d":2,"t":"16:00","m":960,"v":"F","y":"ch","n":"Inteligencia artificial y el futuro de la lectura con Oliver Charles y Axell Bedolla","g":["ciencia"],"s":"Inteligencia artificial y lectura"},{"i":90,"d":2,"t":"17:00","m":1020,"v":"F","y":"ch","n":"Los jóvenes no leen... y otras mentiras que nos han contado con Oliver Charles y Axell Bedolla","g":[]},{"i":91,"d":2,"t":"18:00","m":1080,"v":"F","y":"na","n":"Mujeres que resuelven de Gabriela Jiménez y Ariana Acevedo con Victoria Rábago","g":[]},{"i":92,"d":2,"t":"11:00","m":660,"v":"S1","y":"pr","n":"De mí para tí de Miriam López Cruz con Raúl Bravo","g":[]},{"i":93,"d":2,"t":"12:00","m":720,"v":"S1","y":"pr","n":"Gel azul de BEF con Ekatherina Busquets","g":["poesia"]},{"i":94,"d":2,"t":"13:00","m":780,"v":"S1","y":"pr","n":"Agrupaciones musicales comunitarias y perspectiva de género: Un relato colectivo sobre los recorridos de la Camerata Femenil Vientos Musicales de Tzitzitlini Sanabria Calvo con Raúl Bravo","g":[]},{"i":95,"d":2,"t":"15:00","m":900,"v":"S1","y":"pr","n":"Lectura de obra del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Cinthya Lucatero, José Alejandro, Norma del Río e Inés Cardozo","g":["oficio"]},{"i":96,"d":2,"t":"16:00","m":960,"v":"S1","y":"pr","n":"El coleccionista de experiencias de Arturo López Gavito con Naye Martínez","g":[]},{"i":97,"d":2,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"Ya no tengo fuerza para ser civilizada de Iveth Luna Flores con Fedora Farías","g":[]},{"i":98,"d":2,"t":"18:00","m":1080,"v":"S1","y":"pr","n":"Perdidos en Hamartia de Luis Jorge Boone con Victoria Rábago","g":["narrativa"]},{"i":99,"d":2,"t":"11:00","m":660,"v":"S2","y":"na","n":"Cuentacuentos con Nacho Casas","g":["familia"]},{"i":100,"d":2,"t":"12:00","m":720,"v":"S2","y":"pr","n":"La rana Renata de Isabel Gamma","g":["familia"]},{"i":101,"d":2,"t":"15:00","m":900,"v":"S2","y":"pr","n":"Semilla y memoria: versos del copal de José Luis Aguilar Ramírez con Héctor Ruíz Rueda","g":["poesia"]},{"i":102,"d":2,"t":"16:00","m":960,"v":"S2","y":"pr","n":"La cuenta regresiva de Diana Pérez con Carla Esquivel","g":[]},{"i":103,"d":2,"t":"17:00","m":1020,"v":"S2","y":"pr","n":"La virtud de lo imperfecto de J.J. Mason con Raúl Bravo","g":[]},{"i":104,"d":2,"t":"18:00","m":1080,"v":"S2","y":"pr","n":"Vals para lobos y pastor de Ernesto Lumbreras con Córvido Ramírez","g":[]},{"i":105,"d":2,"t":"11:00","m":660,"v":"AE","y":"ta","n":"Corazón de tierra","g":["oficio"]},{"i":106,"d":2,"t":"15:00","m":900,"v":"AE","y":"ta","n":"Laboratorio de cuentos con Eduardo Antonio Parra","g":["narrativa","oficio"]},{"i":107,"d":2,"t":"12:00","m":720,"v":"PJ","y":"po","n":"Podcast · Nacho Casas","g":[]},{"i":108,"d":2,"t":"13:00","m":780,"v":"PJ","y":"po","n":"Podcast · Luis Jorge Boone","g":[]},{"i":109,"d":2,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · J.J. Mason","g":[]},{"i":110,"d":2,"t":"16:00","m":960,"v":"PJ","y":"po","n":"Podcast · Roberto Coria","g":[]},{"i":111,"d":2,"t":"11:00","m":660,"v":"AC","y":"ta","n":"Taller de dibujo inspirado en La escama de Carlos Álvarez","g":["oficio"]},{"i":112,"d":2,"t":"15:00","m":900,"v":"AC","y":"ta","n":"Escritura defensiva en la era de la IA: Cómo proteger nuestras ideas, procesos y voz frente a los Grandes Modelos de Lenguaje con René López Villamar","g":["ciencia","oficio"],"s":"Cómo proteger tus ideas frente a los modelos de lenguaje"},{"i":113,"d":2,"t":"17:00","m":1020,"v":"AC","y":"ta","n":"Taller de Edición Literaria con Gil Gallardo","g":["oficio"]},{"i":114,"d":2,"t":"12:00","m":720,"v":"AG","y":"sh","n":"Cuentacuentos Esperanzarte Santa Rita","g":["familia"]},{"i":115,"d":2,"t":"16:00","m":960,"v":"AG","y":"sh","n":"Pablo Cabrera Cantautor","g":["escena"]},{"i":116,"d":2,"t":"17:00","m":1020,"v":"AG","y":"sh","n":"Música urbana","g":["escena"]},{"i":117,"d":2,"t":"18:00","m":1080,"v":"AG","y":"sh","n":"Música urbana","g":["escena"]},{"i":118,"d":2,"t":"08:00","m":480,"v":"PQ","y":"ar","n":"14° Festival Madonnari Celaya 2026.","g":[],"amb":1},{"i":119,"d":3,"t":"11:00","m":660,"v":"T","y":"ch","n":"Batman el criminólogo con Roberto Coria","g":["negra"]},{"i":120,"d":3,"t":"12:00","m":720,"v":"T","y":"ch","n":"Los audiolibros para adolecentes con René López Villamar","g":[]},{"i":121,"d":3,"t":"16:00","m":960,"v":"T","y":"pr","n":"Sonidos de México de Cha! con Federico Mastrogiovanni","g":["escena"]},{"i":122,"d":3,"t":"17:00","m":1020,"v":"T","y":"pr","n":"El club Barba Azul de José Mariano Leyva con Córvido Ramírez","g":["negra"]},{"i":123,"d":3,"t":"18:00","m":1080,"v":"T","y":"pr","n":"Cómo mentir en internet de Adrián Chávez con René López Villamar","g":["ciencia"],"s":"Internet y desinformación"},{"i":124,"d":3,"t":"09:00","m":540,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":125,"d":3,"t":"11:00","m":660,"v":"F","y":"ch","n":"Los jóvenes no leen... y otras mentiras que nos han contado con Oliver Charles y Axell Bedolla","g":[]},{"i":126,"d":3,"t":"12:00","m":720,"v":"F","y":"ch","n":"Inteligencia artificial y el futuro de la lectura con Oliver Charles y Axell Bedolla","g":["ciencia"]},{"i":127,"d":3,"t":"13:00","m":780,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":128,"d":3,"t":"14:00","m":840,"v":"F","y":"fo","n":"Sala de lectura en espacio editorial de Alas y Raices","g":["familia"]},{"i":129,"d":3,"t":"15:00","m":900,"v":"F","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":130,"d":3,"t":"16:00","m":960,"v":"F","y":"na","n":"Cuentacuentos con Viri Varillas","g":["familia"]},{"i":131,"d":3,"t":"17:00","m":1020,"v":"F","y":"sh","n":"Concurso Cosplay con Mike Zheng","g":["escena","familia"]},{"i":132,"d":3,"t":"11:00","m":660,"v":"S1","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":133,"d":3,"t":"12:00","m":720,"v":"S1","y":"pr","n":"No es un barco pirata ni tiene cañones de Julio Édgar Méndez con Raúl Bravo","g":[]},{"i":134,"d":3,"t":"13:00","m":780,"v":"S1","y":"pr","n":"Awita de chale de Brian Duran-Fuentes, Iván Mata, Patricia Huerta y Zauriel A. Martínez con Raúl Bravo","g":[]},{"i":135,"d":3,"t":"14:00","m":840,"v":"S1","y":"pr","n":"Viaje a uno mismo de Francisco Javier Solorio Montalván","g":[]},{"i":136,"d":3,"t":"15:00","m":900,"v":"S1","y":"pr","n":"Aprende a vivir sin ansiedad. Siete lecciones poderosas para sanarte de Norma del Río Ortiz con Édgar Muñoz","g":[]},{"i":137,"d":3,"t":"16:00","m":960,"v":"S1","y":"pr","n":"Par Tres / Mujer nacida bruja de Dennise Alejandra Martínez con Raúl Bravo","g":[]},{"i":138,"d":3,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"La noche más oscura de Eduardo Antonio Parra con Lola Ancira","g":["narrativa","negra"]},{"i":139,"d":3,"t":"18:00","m":1080,"v":"S1","y":"pr","n":"Gastronauta en México de Federico Mastrogiovanni con Alejandro Paniagua","g":["ensayo"]},{"i":140,"d":3,"t":"13:00","m":780,"v":"S2","y":"pr","n":"Miedos familiares de Jorge Bárcenas","g":["negra"]},{"i":141,"d":3,"t":"14:00","m":840,"v":"S2","y":"pr","n":"Lectura de obra del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Alejandro León, Monserrath Campos Sánchez, Óscar Ruiz Rangel y Rosy Alanis","g":["oficio"]},{"i":142,"d":3,"t":"15:00","m":900,"v":"S2","y":"pr","n":"Alacranes de color guayaba agria de Luz Paola López con Andrea Albarrán.","g":[]},{"i":143,"d":3,"t":"16:00","m":960,"v":"S2","y":"pr","n":"Las brujas y hechiceras de la Villa de Celaya de Pablo E. Pérez Joya con Aleida Ocampo y Luis Fernando Amate","g":["ensayo","negra"]},{"i":144,"d":3,"t":"17:00","m":1020,"v":"S2","y":"pr","n":"Neblina afuera de Iveth Luna Flores con Naye Martínez","g":[]},{"i":145,"d":3,"t":"18:00","m":1080,"v":"S2","y":"pr","n":"Presentación de Celaya en sus letras presenta: Hemisferios de Monserrath Campos Sánchez con Baudelio Camarillo","g":[]},{"i":146,"d":3,"t":"11:00","m":660,"v":"AE","y":"ta","n":"Corazón de tierra","g":["oficio"]},{"i":147,"d":3,"t":"15:00","m":900,"v":"AE","y":"ta","n":"Laboratorio de cuentos de Celaya con Eduardo Antonio Parra","g":["narrativa","oficio"]},{"i":148,"d":3,"t":"17:00","m":1020,"v":"AE","y":"ta","n":"Taller de Edición Literaria con Gil Gallardo","g":["oficio"]},{"i":149,"d":3,"t":"12:00","m":720,"v":"PJ","y":"po","n":"Podcast · Iveth Luna Flores","g":[]},{"i":150,"d":3,"t":"13:00","m":780,"v":"PJ","y":"po","n":"Podcast · Federico Mastrogiovanni","g":[]},{"i":151,"d":3,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · René López Villamar","g":[]},{"i":152,"d":3,"t":"16:00","m":960,"v":"PJ","y":"po","n":"Podcast · Adrián Chávez","g":[]},{"i":153,"d":3,"t":"17:00","m":1020,"v":"PJ","y":"po","n":"Podcast · Luis Miguel Estrada","g":[]},{"i":154,"d":3,"t":"11:00","m":660,"v":"AC","y":"ta","n":"Taller inspirado en Cuando el cielo se apaga con Nora Millán","g":[]},{"i":155,"d":3,"t":"16:00","m":960,"v":"AC","y":"ta","n":"Taller inspirado en Cuando el cielo se apaga con Nora Millán","g":[]},{"i":156,"d":3,"t":"17:00","m":1020,"v":"AC","y":"ta","n":"Cómo armar una nave espacial: herramientas para una historia juvenil con Antonio Ramos Revillas","g":["ciencia","oficio"]},{"i":157,"d":3,"t":"14:00","m":840,"v":"AG","y":"sh","n":"DÚO BOREAS","g":["escena"]},{"i":158,"d":3,"t":"15:00","m":900,"v":"AG","y":"sh","n":"“Danzas polinesias” Esperanzarte Vallehermoso","g":["escena"]},{"i":159,"d":3,"t":"18:00","m":1080,"v":"AG","y":"sh","n":"Los patita de perro","g":["escena"]},{"i":160,"d":3,"t":"16:00","m":960,"v":"RO","y":"sh","n":"Atardecer Salvaje","g":["escena"]},{"i":161,"d":3,"t":"17:00","m":1020,"v":"ES","y":"sh","n":"Estudiantina","g":["escena"]},{"i":162,"d":3,"t":"08:00","m":480,"v":"PQ","y":"ar","n":"14° Festival Madonnari Celaya 2026.","g":[],"amb":1},{"i":163,"d":4,"t":"11:00","m":660,"v":"T","y":"ch","n":"Charla con Mediadores de lectura con Antonio Ramos Revillas","g":["oficio"]},{"i":164,"d":4,"t":"12:00","m":720,"v":"T","y":"pr","n":"Hibakusha. Testimonio de Yasuaki Yamashita de Sergio Hernández","g":["ensayo"],"s":"Testimonio de un hibakusha, sobreviviente de las bombas atómicas"},{"i":165,"d":4,"t":"13:00","m":780,"v":"T","y":"pr","n":"México, el gobierno de Roosevelt y el panamericanismo de Juan Miguel Ramírez Sánchez","g":["ensayo"]},{"i":166,"d":4,"t":"15:00","m":900,"v":"T","y":"pr","n":"101 herramientas blandas para el liderazgo de Adrián Guerrero Caracheo","g":["ensayo"]},{"i":167,"d":4,"t":"16:00","m":960,"v":"T","y":"pr","n":"Menos realidades, más promesas de Juan Carlos Monedero","g":["ensayo"],"s":"Presentación de Juan Carlos Monedero"},{"i":168,"d":4,"t":"17:00","m":1020,"v":"T","y":"pr","n":"El cielo está vacío de Sara Jaramillo con Laura Baeza","g":[]},{"i":169,"d":4,"t":"18:00","m":1080,"v":"T","y":"pr","n":"Donde termina el verano de Elma Correa con Yuyú Fernández y Aleida Ocampo","g":[]},{"i":170,"d":4,"t":"20:30","m":1230,"v":"T","y":"sh","n":"Concierto Alejandro Filio","g":["escena"],"s":"Concierto de Alejandro Filio"},{"i":171,"d":4,"t":"09:00","m":540,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":172,"d":4,"t":"10:00","m":600,"v":"F","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":173,"d":4,"t":"11:00","m":660,"v":"F","y":"pr","n":"Los cuadernos de Esaú de Luis Miguel Estrada con Walter Díaz","g":[]},{"i":174,"d":4,"t":"12:00","m":720,"v":"F","y":"pr","n":"Los colmillos del muertito de Lola Ancira con Lolis Bibriesca","g":["familia"]},{"i":175,"d":4,"t":"13:00","m":780,"v":"F","y":"pr","n":"El abuelo fuego/ Bernardo Govea","g":["familia"]},{"i":176,"d":4,"t":"14:00","m":840,"v":"F","y":"pr","n":"Vota por mamá de Soffi P. Guido con Cynthia Lucatero","g":[]},{"i":177,"d":4,"t":"15:00","m":900,"v":"F","y":"pr","n":"Huérfanos de Andrés Acosta con Fedora Farías","g":[]},{"i":178,"d":4,"t":"16:00","m":960,"v":"F","y":"pr","n":"Antes, mucho antes de Antonio Ramos Revillas con José Rentería","g":[]},{"i":179,"d":4,"t":"17:00","m":1020,"v":"F","y":"ch","n":"Trucos para leer y no bostezar en el intento con Raquel Castro","g":["oficio"]},{"i":180,"d":4,"t":"18:00","m":1080,"v":"F","y":"pr","n":"Panza poeta de Alejandro Paniagua con Gil Gallardo","g":["poesia"]},{"i":181,"d":4,"t":"10:00","m":600,"v":"S1","y":"pr","n":"El papel de lo extraño de Alí Rendón","g":[]},{"i":182,"d":4,"t":"11:00","m":660,"v":"S1","y":"pr","n":"El Reino de la salamandra de Horacio Saavedra","g":[]},{"i":183,"d":4,"t":"12:00","m":720,"v":"S1","y":"pr","n":"Hombre de arte que trabajó con policías de Roberto Coria con Córvido Ramírez","g":["negra"]},{"i":184,"d":4,"t":"13:00","m":780,"v":"S1","y":"pr","n":"Este País de Minerva Reynosa con Raúl Bravo","g":[]},{"i":185,"d":4,"t":"14:00","m":840,"v":"S1","y":"pr","n":"Ciudad perdida por otra ciudad de Sesi García con Alejandro Paniagua","g":["ensayo"]},{"i":186,"d":4,"t":"15:00","m":900,"v":"S1","y":"pr","n":"Época de cerezos de Laura Baeza con Victoria Rábago","g":[]},{"i":187,"d":4,"t":"16:00","m":960,"v":"S1","y":"pr","n":"Estás aquí porque nadie te quiso de regreso de Imanol Caneyada con José Mariano Leyva","g":["narrativa"]},{"i":188,"d":4,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"El último argumento del rey de Luis Miguel Estrada con Alejandro Von Düben","g":["narrativa"]},{"i":189,"d":4,"t":"18:00","m":1080,"v":"S1","y":"pr","n":"El orden natural de las cosas de Claudia Sandoval","g":[]},{"i":190,"d":4,"t":"10:00","m":600,"v":"S2","y":"pr","n":"Páginas y sombras: los secretos del Archivo de Celaya: Ponte los guantes, abre un libro y descubre el pasado.","g":["ensayo"]},{"i":191,"d":4,"t":"11:00","m":660,"v":"S2","y":"pr","n":"Violeta Turquesa de Jacob D. Silva","g":[]},{"i":192,"d":4,"t":"12:00","m":720,"v":"S2","y":"pr","n":"Aquí acaba la patria de Federico Mastriogiovanni con José Mariano Leyva","g":[]},{"i":193,"d":4,"t":"13:00","m":780,"v":"S2","y":"ch","n":"Las historias que nos cruzan con Elma Correa, Weselina Gacinska y Ana Clara Muro","g":[]},{"i":194,"d":4,"t":"14:00","m":840,"v":"S2","y":"pr","n":"Las últimas flores de un jardín olvidado de Córvido Ramírez","g":["poesia"]},{"i":195,"d":4,"t":"15:00","m":900,"v":"S2","y":"pr","n":"Electrocauterización de Ana Clara Muro con Alejandro Von Düben","g":[]},{"i":196,"d":4,"t":"16:00","m":960,"v":"S2","y":"pr","n":"Despojos de Lola Ancira con Sesi García","g":[]},{"i":197,"d":4,"t":"17:00","m":1020,"v":"S2","y":"pr","n":"La visible oscuridad de Norma Lazo con Adriana Azucena Rodríguez","g":["negra"]},{"i":198,"d":4,"t":"18:00","m":1080,"v":"S2","y":"pr","n":"Celaya en sus letras presenta: Labios de ciudad de Alfredo Acuña Chimés","g":["poesia"]},{"i":199,"d":4,"t":"10:00","m":600,"v":"AE","y":"ta","n":"Taller infantil de Stop Motion con Viridiana Varillas","g":["familia"]},{"i":200,"d":4,"t":"13:00","m":780,"v":"AE","y":"ta","n":"Taller de baile con Mike Zheng","g":["familia"]},{"i":201,"d":4,"t":"16:00","m":960,"v":"AE","y":"ta","n":"Taller infantil de Stop Motion con Viridiana Varillas","g":["familia"]},{"i":202,"d":4,"t":"11:00","m":660,"v":"PJ","y":"po","n":"Podcast · José Mariano Leyva","g":[]},{"i":203,"d":4,"t":"13:00","m":780,"v":"PJ","y":"po","n":"Podcast · Antonio Ramos Revillas","g":[]},{"i":204,"d":4,"t":"14:00","m":840,"v":"PJ","y":"po","n":"Podcast · Elma Correa","g":[]},{"i":205,"d":4,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · Alberto Chimal","g":["ciencia"]},{"i":206,"d":4,"t":"16:00","m":960,"v":"PJ","y":"po","n":"Podcast · Raquel Castro","g":[]},{"i":207,"d":4,"t":"17:00","m":1020,"v":"PJ","y":"po","n":"Podcast · Sesi García","g":[]},{"i":208,"d":4,"t":"11:00","m":660,"v":"AC","y":"ta","n":"Taller de poesía del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Alejandro Paniagua","g":["poesia","oficio"]},{"i":209,"d":4,"t":"14:00","m":840,"v":"AC","y":"ta","n":"Taller inspirado en Cuando el cielo se apaga con Nora Millán","g":[]},{"i":210,"d":4,"t":"16:00","m":960,"v":"AC","y":"ta","n":"Taller de crónica del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Diana del Ángel","g":["oficio"]},{"i":211,"d":4,"t":"10:00","m":600,"v":"AG","y":"sh","n":"Taller de ballet beginner por Esperanzarte Girasoles","g":["escena"]},{"i":212,"d":4,"t":"11:00","m":660,"v":"AG","y":"sh","n":"Ballet Folclorico “Fipac” Esperanzarte Vallehermoso","g":["escena"]},{"i":213,"d":4,"t":"12:00","m":720,"v":"AG","y":"sh","n":"Baile Moderno Esperanzarte Villas del Bajío","g":["escena"]},{"i":214,"d":4,"t":"13:00","m":780,"v":"AG","y":"sh","n":"Danceteria Company","g":["escena"]},{"i":215,"d":4,"t":"14:00","m":840,"v":"AG","y":"sh","n":"“Danzas Polinesias” Esperanzarte San Juanico y Latino","g":["escena"]},{"i":216,"d":4,"t":"16:00","m":960,"v":"AG","y":"sh","n":"“Caida Libre” Banda de Rock","g":["escena"]},{"i":217,"d":4,"t":"17:00","m":1020,"v":"AG","y":"sh","n":"Chiraspelas Banda de Rock","g":["escena"]},{"i":218,"d":4,"t":"18:00","m":1080,"v":"AG","y":"sh","n":"La historia de todos/ Atardecer salvaje","g":["escena"]},{"i":219,"d":5,"t":"11:00","m":660,"v":"T","y":"pr","n":"Cuentos perdidos y encontrados/ Bernardo Govea","g":["familia"]},{"i":220,"d":5,"t":"13:00","m":780,"v":"T","y":"pr","n":"Te lo juro por la virgen de Guadalupe y el osito B de Paco Ignacio Taibo II con Imanol Caneyada y Carlos René Padilla","g":["narrativa","ensayo"],"s":"Paco Ignacio Taibo II"},{"i":221,"d":5,"t":"14:00","m":840,"v":"T","y":"pr","n":"Formación contra la desinformación de Rafael Barajas El Fisgón","g":["ensayo"]},{"i":222,"d":5,"t":"15:00","m":900,"v":"T","y":"pr","n":"Santita de agua clara Laura Baeza con Raquel Castro","g":[]},{"i":223,"d":5,"t":"16:00","m":960,"v":"T","y":"pr","n":"Las máquinas enfermas de Alberto Chimal con Norma Lazo","g":["narrativa","ciencia"],"s":"Alberto Chimal"},{"i":224,"d":5,"t":"17:00","m":1020,"v":"T","y":"pr","n":"Te daré el olvido de Alberto Villarreal con José Rentería","g":[]},{"i":225,"d":5,"t":"18:00","m":1080,"v":"T","y":"sh","n":"Clausura","g":[],"s":"Cierre de la feria"},{"i":226,"d":5,"t":"09:00","m":540,"v":"F","y":"na","n":"Cuentacuentos","g":["familia"]},{"i":227,"d":5,"t":"10:00","m":600,"v":"F","y":"ta","n":"Activación de Origami con Juliana Almiray","g":["familia"]},{"i":228,"d":5,"t":"11:00","m":660,"v":"F","y":"ch","n":"Astronautas, dragones y mundos desconocidos: la ciencia ficción con Alberto Chimal y Raquel Castro","g":["ciencia"],"s":"Alberto Chimal y Raquel Castro sobre ciencia ficción"},{"i":229,"d":5,"t":"12:00","m":720,"v":"F","y":"ch","n":"Charla sobre literatura Infantil con Andrés Acosta","g":[]},{"i":230,"d":5,"t":"13:00","m":780,"v":"F","y":"pr","n":"La novia del fentanilo de Laura Álvarez con Sandra Xicotenca","g":["ensayo","negra"]},{"i":231,"d":5,"t":"14:00","m":840,"v":"F","y":"pr","n":"Celaya en sus letras presenta: Exalumnos de Ana María Torres con Fedora Farías","g":[]},{"i":232,"d":5,"t":"15:00","m":900,"v":"F","y":"pr","n":"La piña de mis tacos de Soffi P. Guido con Walter Díaz","g":[]},{"i":233,"d":5,"t":"16:00","m":960,"v":"F","y":"pr","n":"Clara como fantasma de Alejandro Von Düben con Eles Durán","g":[]},{"i":234,"d":5,"t":"10:00","m":600,"v":"S1","y":"pr","n":"Entre la guerra y la playa me quedé en tus puestas de sol de Gustavo Granados","g":["ensayo"]},{"i":235,"d":5,"t":"11:00","m":660,"v":"S1","y":"pr","n":"Ma. Rosa Porrúa La maldición de Dios de Miguel Alejandro Aboytes con Raúl Bravo","g":[]},{"i":236,"d":5,"t":"12:00","m":720,"v":"S1","y":"pr","n":"Las aves y las letras: Los personajes alados en la literatura de Weselina Gacinska con Córvido Ramírez","g":[]},{"i":237,"d":5,"t":"13:00","m":780,"v":"S1","y":"ch","n":"Poesía para habitar el mundo con Alejandro Paniagua, Sesi García y Diana del Ángel.","g":["poesia"]},{"i":238,"d":5,"t":"14:00","m":840,"v":"S1","y":"pr","n":"Lapicero rojo/ Los lobos del hombre de Adriana Azucena Rodríguez con Cynthia Lucatero","g":[]},{"i":239,"d":5,"t":"15:00","m":900,"v":"S1","y":"pr","n":"Páginas y sombras: los secretos del Archivo de Celaya: Ponte los guantes, abre un libro y descubre el pasado.","g":["ensayo"]},{"i":240,"d":5,"t":"16:00","m":960,"v":"S1","y":"pr","n":"Periferia de Diana del Ángel con Victoria Rábago","g":[]},{"i":241,"d":5,"t":"17:00","m":1020,"v":"S1","y":"pr","n":"Lectura de obra del Diplomado de Profesionalización Literaria de Celaya del INSMACC con Adriana Gasca, María Fernanda Salazar, Luis Rodríguez y Miguel Amore","g":["oficio"]},{"i":242,"d":5,"t":"10:00","m":600,"v":"S2","y":"pr","n":"A las tres de la mañana Vol. 1 Despertar de Jorge Vázquez con Mariana Álvarez Gordillo","g":[]},{"i":243,"d":5,"t":"11:00","m":660,"v":"S2","y":"pr","n":"Presentación de la antología estímulo Violeta","g":[]},{"i":244,"d":5,"t":"12:00","m":720,"v":"S2","y":"ch","n":"Territorios de la memoria: identidad y pasado con Laura Baeza, Claudia Sandoval y Sara Jaramillo","g":["ensayo"]},{"i":245,"d":5,"t":"13:00","m":780,"v":"S2","y":"pr","n":"La tiniebla de Norma Lazo con Ekatherina Busquets","g":["negra"]},{"i":246,"d":5,"t":"14:00","m":840,"v":"S2","y":"pr","n":"La noche de los Axolotes de Jesús Mátero con Raúl Bravo","g":[]},{"i":247,"d":5,"t":"15:00","m":900,"v":"S2","y":"pr","n":"Poemas con Sal y Pimienta de Maximiliano Girón","g":["poesia"]},{"i":248,"d":5,"t":"16:00","m":960,"v":"S2","y":"pr","n":"Lectura de obra reciente de Baudelio Camarillo con Javier Malagón","g":[]},{"i":249,"d":5,"t":"10:00","m":600,"v":"AE","y":"ta","n":"El personaje en la novela con Imanol Caneyada","g":["narrativa","oficio"]},{"i":250,"d":5,"t":"14:00","m":840,"v":"AE","y":"ta","n":"Imaginando un monstruo: filosofía para niños con Marco López","g":["familia"]},{"i":251,"d":5,"t":"10:00","m":600,"v":"PJ","y":"po","n":"Podcast · Norma Lazo","g":[]},{"i":252,"d":5,"t":"11:00","m":660,"v":"PJ","y":"po","n":"Podcast · Alejandro Paniagua","g":[]},{"i":253,"d":5,"t":"12:00","m":720,"v":"PJ","y":"po","n":"Podcast · Diana del Ángel","g":[]},{"i":254,"d":5,"t":"13:00","m":780,"v":"PJ","y":"po","n":"Podcast · Laura Baeza","g":[]},{"i":255,"d":5,"t":"14:00","m":840,"v":"PJ","y":"po","n":"Podcast · Weselina Gacinska","g":[]},{"i":256,"d":5,"t":"15:00","m":900,"v":"PJ","y":"po","n":"Podcast · Sara Jaramillo","g":[]},{"i":257,"d":5,"t":"11:00","m":660,"v":"AC","y":"ta","n":"Taller infantil de Stop Motion con Viridiana Varillas","g":["familia"]},{"i":258,"d":5,"t":"15:00","m":900,"v":"AC","y":"ta","n":"Taller infantil de Stop Motion con Viridiana Varillas","g":["familia"]},{"i":259,"d":5,"t":"12:00","m":720,"v":"AG","y":"sh","n":"Danzas Polinesias “Kia Kaha”","g":["escena"]},{"i":260,"d":5,"t":"13:00","m":780,"v":"AG","y":"sh","n":"“Alquimia Tribal” Danzas Árabes","g":["escena"]},{"i":261,"d":5,"t":"15:00","m":900,"v":"AG","y":"sh","n":"Let´s jam/ Jammy","g":["escena"]},{"i":262,"d":5,"t":"16:00","m":960,"v":"AG","y":"sh","n":"“Danzas Polinesias” Esperanzarte Santa Rita","g":["escena"]},{"i":263,"d":5,"t":"17:00","m":1020,"v":"AG","y":"sh","n":"“Ritmos Latinos” Esperanzarte La Luz","g":["escena"]}];
+const DAYS=[{k:'2026-09-29',w:'Mar',n:29,m:'sep',f:'Martes 29 de septiembre'},{k:'2026-09-30',w:'Mié',n:30,m:'sep',f:'Miércoles 30 de septiembre'},{k:'2026-10-01',w:'Jue',n:1,m:'oct',f:'Jueves 1 de octubre'},{k:'2026-10-02',w:'Vie',n:2,m:'oct',f:'Viernes 2 de octubre'},{k:'2026-10-03',w:'Sáb',n:3,m:'oct',f:'Sábado 3 de octubre'},{k:'2026-10-04',w:'Dom',n:4,m:'oct',f:'Domingo 4 de octubre'}];
+const VEN={T:'Teatro de la Ciudad',F:'Feria infantil y juvenil',S1:'Foro Ibargüengoitia · Sala 1',S2:'Foro Emma Godoy · Sala 2',AE:'Aula Efraín Huerta',PJ:'Podcast Juventud',AC:"Aula Catalina D'Erzel",AG:'Ágora',RO:'Rotonda',ES:'Escalinata',PQ:'Parque Fundadores'};
+const TY={pr:'Presentación',ch:'Charla',ta:'Taller',po:'Podcast',na:'Narración',fo:'Fomento a la lectura',sh:'Espectáculo',ar:'Artes plásticas'};
+const FMT={pr:'pres',ch:'charla',ta:'taller',po:'podcast',sh:'show'};
+const TOP={ciencia:'Ciencia, tecnología e IA',ensayo:'Historia y sociedad',narrativa:'Novela y cuento',poesia:'Poesía',negra:'Crimen y misterio',oficio:'Escribir y leer mejor',escena:'Música, danza y escena',familia:'Para niños y familias'};
+const FM={pres:'Presentaciones',charla:'Charlas',taller:'Talleres',podcast:'Podcasts',show:'Espectáculos'};
+const MODES={sel:['Selecto',3.2],bal:['Equilibrado',2.2],mar:['Maratón',1.0]};
+const KEY='filcel26-ruta';
+const byId={};E.forEach(e=>byId[e.i]=e);
+let S={interests:[],formats:[],mode:'bal',sel:{},day:0,name:'',friends:[],scope:'day',theme:'light'};
+try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r)S=Object.assign(S,r)}catch(_){}
+const T={pastOpen:{},sheet:false,view:'program',open:{},exp:{},all:false,imp:'',dayInit:false,now:null};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(_){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const hh=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+const dayShort=d=>DAYS[d].w+' '+DAYS[d].n;
+
+function nowMX(){
+  try{const s=new Date().toLocaleString('sv-SE',{timeZone:'America/Mexico_City'});return{k:s.slice(0,10),m:+s.slice(11,13)*60+ +s.slice(14,16)}}
+  catch(_){return{k:'2000-01-01',m:0}}
+}
+const isPast=e=>{const n=T.now,k=DAYS[e.d].k;return k<n.k||(k===n.k&&e.m+60<=n.m)};
+const dayPast=d=>DAYS[d].k<T.now.k;
+const overlap=(a,b)=>a.d===b.d&&a.m<b.m+60&&b.m<a.m+60;
+const thr=()=>MODES[S.mode][1];
+
+function score(e){
+  let s=1+(e.s?1.2:0);
+  const m=e.g.filter(t=>S.interests.includes(t));
+  if(m.length)s+=3+0.8*(m.length-1);
+  if(FMT[e.y]&&S.formats.includes(FMT[e.y]))s+=1.2;
+  if(e.g.includes('familia')&&!S.interests.includes('familia'))s-=2.5;
+  return s;
+}
+let DUP={};
+function computeDup(){
+  const g={};E.forEach(e=>{if(e.amb||e.y==='po')return;(g[e.n.toLowerCase()]=g[e.n.toLowerCase()]||[]).push(e)});
+  DUP={};
+  for(const k in g){const a=g[k];if(a.length<2)continue;
+    let best=a.find(e=>S.sel[e.i]===1)||null;
+    if(!best){let bs=-1e9;a.forEach(e=>{if(isPast(e))return;
+      let comp=0;E.forEach(o=>{if(o.i!==e.i&&!o.amb&&overlap(o,e)){const v=score(o);if(v>comp)comp=v}});
+      const v=score(e)-comp*0.5;if(v>bs){bs=v;best=e}});}
+    if(!best)best=a[0];
+    a.forEach(e=>DUP[e.i]={best:e.i===best.i,bestId:best.i,all:a});}
+}
+const rank=e=>score(e)-(DUP[e.i]&&!DUP[e.i].best?0.8:0);
+function whyParts(e){
+  const p=[];const m=e.g.filter(t=>S.interests.includes(t)).map(t=>TOP[t]);
+  if(m.length)p.push('Coincide con '+m.join(' + '));
+  if(FMT[e.y]&&S.formats.includes(FMT[e.y]))p.push('formato que prefieres');
+  return p.join(' · ');
+}
+
+/* --- selección --- */
+function toggle(id){
+  const e=byId[id];
+  if(S.sel[id]){delete S.sel[id];save();return}
+  let rep=null;
+  Object.keys(S.sel).forEach(k=>{const o=byId[k];if(overlap(o,e)){rep=o;delete S.sel[k]}});
+  S.sel[id]=1;save();
+  if(rep)toast('Cambiaste «'+short(rep.n)+'» por este horario');
+}
+const short=s=>s.length>38?s.slice(0,36)+'…':s;
+
+function autoDay(d){
+  const th=thr();
+  Object.keys(S.sel).forEach(k=>{if(byId[k].d===d&&S.sel[k]===2)delete S.sel[k]});
+  const locked=E.filter(e=>e.d===d&&S.sel[e.i]===1);
+  const lockedKeys=new Set(Object.keys(S.sel).filter(k=>S.sel[k]===1).map(k=>byId[k].n.toLowerCase()));
+  const autoKeys=new Set(Object.keys(S.sel).filter(k=>S.sel[k]===2).map(k=>byId[k].n.toLowerCase()));
+  let c=E.filter(e=>e.d===d&&!e.amb&&!isPast(e)&&S.sel[e.i]!==1&&score(e)>=th
+    &&!locked.some(l=>overlap(l,e))&&!(DUP[e.i]&&!DUP[e.i].best)&&!lockedKeys.has(e.n.toLowerCase())&&!autoKeys.has(e.n.toLowerCase()));
+  const all=c.concat(locked).sort((a,b)=>a.m-b.m||a.i-b.i);
+  const val=e=>S.sel[e.i]===1?100:score(e)-th+1;
+  const n=all.length,dp=new Array(n).fill(0),prev=new Array(n).fill(-1);
+  for(let i=0;i<n;i++){
+    let best=0,bp=-1;
+    for(let j=0;j<i;j++){
+      if(all[j].m+60<=all[i].m){
+        const pen=(all[j].v!==all[i].v&&all[i].m-(all[j].m+60)<15)?0.6:0;
+        const v=dp[j]-pen;if(v>best){best=v;bp=j}
+      }
+    }
+    dp[i]=val(all[i])+best;prev[i]=bp;
+  }
+  let bi=-1,bv=0;for(let i=0;i<n;i++)if(dp[i]>bv){bv=dp[i];bi=i}
+  const chosen=[];while(bi>=0){chosen.push(all[bi]);bi=prev[bi]}
+  let added=0;chosen.forEach(e=>{if(!S.sel[e.i]){S.sel[e.i]=2;added++}});
+  return added;
+}
+
+/* --- textos --- */
+function dayPicks(d){return Object.keys(S.sel).map(k=>byId[k]).filter(e=>e.d===d).sort((a,b)=>a.m-b.m)}
+function gaps(list){
+  const g=[];for(let i=1;i<list.length;i++){const a=list[i-1].m+60,b=list[i].m;if(b-a>=90)g.push([a,b])}
+  return g;
+}
+function planText(){
+  let t='Mi ruta en la FILCEL 2026 (Celaya, Parque Fundadores 450)\n';
+  DAYS.forEach((D,d)=>{const l=dayPicks(d);if(!l.length)return;
+    t+='\n'+D.f+'\n';l.forEach(e=>{t+=e.t+' · '+e.n+' — '+VEN[e.v]+'\n'});});
+  if(STANDALONE&&Object.keys(S.sel).length)t+='\nVe mi ruta y compárala con la tuya: '+planLink();
+  return t.trim();
+}
+const STANDALONE=/^https?:$/.test(location.protocol)&&!/claude/i.test(location.hostname);
+function planLink(){return location.origin+location.pathname+'#ruta='+encodeURIComponent(planCode())}
+function planCode(){return 'FILCEL1|'+(S.name||'').replace(/[|,]/g,' ').trim()+'|'+Object.keys(S.sel).map(k=>(+k).toString(36)).join(',')}
+function parseCode(c){
+  const p=c.trim().split('|');if(p[0]!=='FILCEL1'||p.length<3)return null;
+  const ids=p[2].split(',').filter(Boolean).map(x=>parseInt(x,36)).filter(i=>byId[i]);
+  return{n:p[1]||'Amigo',ids};
+}
+async function copyText(t,okMsg){
+  try{await navigator.clipboard.writeText(t);toast(okMsg)}
+  catch(_){const ta=document.getElementById('out');if(ta){ta.focus();ta.select()}toast('Selecciona el texto y cópialo')}
+}
+let toastT;
+function toast(m){const el=document.getElementById('toast');el.textContent=m;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,2600)}
+
+/* --- vistas --- */
+function renderDays(){
+  document.getElementById('days').innerHTML=DAYS.map((D,d)=>{
+    const n=dayPicks(d).length;
+    return `<button class="day${dayPast(d)?' past':''}" data-act="day" data-d="${d}" ${S.day===d?'aria-current="true"':''}>
+      ${D.k===T.now.k?'<span class="now">HOY</span>':''}<small>${D.w}<span class="mo"> · ${D.m}</span></small><b>${D.n}</b>
+      <span class="dots">${'<i></i>'.repeat(Math.min(n,6))}</span></button>`}).join('');
+}
+const IC={
+ route:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.3"/><path d="M8.3 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h5"/><path d="M18.5 2.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z" fill="currentColor" stroke="none"/></svg>',
+ sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>',
+ moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7z"/></svg>',
+ list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 2.5v4M16 2.5v4"/></svg>',
+ close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>'
+};
+function prefsHtml(){
+  if(!S.interests.length&&!Object.keys(S.sel).length)return `<div class="welcome">
+    <h2>¿A dónde ir en la feria?</h2>
+    <p>Cada hora hay hasta seis actividades al mismo tiempo. Dime qué te gusta y te armo la mejor ruta, sin choques de horario.</p>
+    <button class="btn pri big" data-act="opensheet">${IC.route}Armar ruta</button></div>`;
+  const txt=S.interests.length?S.interests.map(t=>TOP[t]).join(', ')+' · '+MODES[S.mode][0]:'Solo destacados · '+MODES[S.mode][0];
+  return `<div class="prefs"><div class="txt"><div class="k">Tus gustos</div><div class="v">${esc(txt)}</div></div>
+    <button class="btn pri" data-act="opensheet">${IC.route}Armar ruta</button></div>`;
+}
+function sheetHtml(){
+  const none=!S.interests.length;
+  const d=S.day;
+  return `<div class="scrim${T.anim?' anim':''}" data-act="closesheet"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="shT">
+    <div class="grab"></div>
+    <header><h2 id="shT">Armar ruta</h2><button class="iconbtn" data-act="closesheet" aria-label="Cerrar">${IC.close}</button></header>
+    <div class="body">
+      <p class="hint">Elige temas y ritmo. Respeto lo que ya marcaste a mano.</p>
+      <div class="lbl">Temas que te gustan</div>
+      <div class="chips">${Object.keys(TOP).map(k=>`<button class="chip" data-act="topic" data-k="${k}" aria-pressed="${S.interests.includes(k)}">${TOP[k]}</button>`).join('')}</div>
+      <div class="lbl">Formatos que prefieres <span style="text-transform:none;letter-spacing:0;font-weight:500">(opcional)</span></div>
+      <div class="chips">${Object.keys(FM).map(k=>`<button class="chip" data-act="fmt" data-k="${k}" aria-pressed="${S.formats.includes(k)}">${FM[k]}</button>`).join('')}</div>
+      <div class="lbl">Ritmo</div>
+      <div class="seg">${Object.keys(MODES).map(k=>`<button data-act="mode" data-k="${k}" aria-pressed="${S.mode===k}">${MODES[k][0]}</button>`).join('')}</div>
+      <p class="hint" style="margin-top:6px">${S.mode==='sel'?'Solo lo que encaja muy bien contigo.':S.mode==='bal'?'Lo que encaja bien, con tiempo para respirar.':'Llenar cada hora que tenga algo bueno.'}</p>
+      <div class="lbl">¿Para cuándo?</div>
+      <div class="seg"><button data-act="scope" data-k="day" aria-pressed="${S.scope==='day'}">Solo ${DAYS[d].w} ${DAYS[d].n}</button><button data-act="scope" data-k="all" aria-pressed="${S.scope==='all'}">Toda la feria</button></div>
+    </div>
+    <footer>${none?'<p class="hint" style="text-align:center">Sin temas elegidos solo sugiero los destacados.</p>':''}
+      <button class="btn pri big" data-act="build">${IC.route}Armar ruta${S.scope==='all'?' de toda la feria':' del '+DAYS[d].w.toLowerCase()+' '+DAYS[d].n}</button></footer>
+  </div></div>`;
+}
+function renderSheet(){
+  const root=document.getElementById('sheetRoot');
+  const scroll=root.querySelector('.body')?.scrollTop||0;
+  root.innerHTML=T.sheet?sheetHtml():'';T.anim=false;
+  document.documentElement.style.overflow=T.sheet?'hidden':'';
+  const b=root.querySelector('.body');if(b)b.scrollTop=scroll;
+}
+function openSheet(){T.sheet=true;T.anim=true;T.lastFocus=document.activeElement;renderSheet();const c=document.querySelector('.sheet .chip');if(c)c.focus({preventScroll:true})}
+function closeSheet(){T.sheet=false;renderSheet();if(T.lastFocus&&document.body.contains(T.lastFocus))T.lastFocus.focus({preventScroll:true})}
+function applyTheme(){
+  document.documentElement.dataset.app=S.theme;
+  const b=document.getElementById('themeBtn');
+  const dark=S.theme==='dark';
+  b.innerHTML=dark?IC.sun:IC.moon;
+  b.setAttribute('aria-label',dark?'Cambiar a tema claro':'Cambiar a tema oscuro');
+  b.title=dark?'Tema claro':'Tema oscuro';
+}
+function heatHtml(d){
+  const times={};E.filter(e=>e.d===d&&!e.amb).forEach(e=>{(times[e.m]=times[e.m]||[]).push(e)});
+  const ms=Object.keys(times).map(Number).sort((a,b)=>a-b);
+  if(!ms.length)return '';
+  const mx=Math.max(...ms.map(m=>times[m].length));
+  const picked=new Set(dayPicks(d).map(e=>e.m));
+  const bars=ms.map(m=>{const n=times[m].length;const old=times[m].every(isPast);
+    return `<button class="${picked.has(m)?'on':''}${old?' old':''}" style="height:${Math.round(10+28*n/mx)}px" data-act="goslot" data-k="${d}-${m}" aria-label="${hh(m)}: ${n} actividades a la vez"></button>`}).join('');
+  return `<div class="heat" role="group" aria-label="Actividades por horario">${bars}</div>
+    <div class="heatlbl"><span>${hh(ms[0])}</span><span>Más alto = más opciones a la vez</span><span>${hh(ms[ms.length-1])}</span></div>`;
+}
+function summaryHtml(d){
+  const l=dayPicks(d);
+  if(dayPast(d))return l.length?`<p class="summary">Elegiste <b>${l.length} ${l.length===1?'actividad':'actividades'}</b> este día.</p>`:'';
+  if(!l.length)return `<p class="summary">Todavía no has elegido nada. Toca <b>Armar ruta</b> y te propongo la mejor combinación, o elige tú en cada horario.</p>`;
+  let sw=0;for(let i=1;i<l.length;i++)if(l[i-1].v!==l[i].v)sw++;
+  const g=gaps(l);
+  return `<p class="summary"><b>${l.length} ${l.length===1?'actividad':'actividades'}</b> de ${l[0].t} a ${hh(l[l.length-1].m+60)}${sw?`, ${sw} ${sw===1?'cambio':'cambios'} de sede`:''}${g.length?`. Tiempo libre: ${g.map(x=>hh(x[0])+'–'+hh(x[1])).join(', ')}, buen momento para comer o recorrer los stands`:''}.</p>`;
+}
+function cardHtml(e,opts){
+  const going=!!S.sel[e.i];
+  const dp=DUP[e.i];
+  const fr=S.friends.filter(f=>f.ids.includes(e.i));
+  const why=whyParts(e);
+  const open=!!T.open[e.i];
+  let det='';
+  if(open){
+    const rel=E.filter(o=>o.i!==e.i&&!o.amb&&((e.y==='po'&&o.y!=='po'&&e.n.replace('Podcast · ','').split(/ y /).some(p=>p.length>4&&o.n.includes(p)))||(e.y!=='po'&&o.y==='po'&&o.n.replace('Podcast · ','').split(/ y /).some(p=>p.length>4&&e.n.includes(p)))||(e.y!=='po'&&o.y!=='po'&&false)));
+    const people=(e.y==='po'?e.n.replace('Podcast · ','').split(/ y /):[]).filter(p=>p.length>4);
+    const rel2=people.length?E.filter(o=>o.i!==e.i&&o.y!=='po'&&!o.amb&&people.some(p=>o.n.includes(p))):[];
+    const relAll=[...new Set(rel.concat(rel2))].slice(0,4);
+    det=`<div class="detail">
+      <div><b>${DAYS[e.d].f}</b>, ${e.t} a ${hh(e.m+60)} · ${VEN[e.v]}</div>
+      ${dp&&dp.all.length>1?`<div>Se repite: ${dp.all.filter(o=>o.i!==e.i).map(o=>`<button class="lnk" data-act="jump" data-id="${o.i}">${dayShort(o.d)} ${o.t}</button>`).join(', ')}. ${dp.best?'Este es el mejor horario para ti.':`Mejor horario para ti: <button class="lnk" data-act="jump" data-id="${dp.bestId}">${dayShort(byId[dp.bestId].d)} ${byId[dp.bestId].t}</button>.`}</div>`:''}
+      ${relAll.length?`<div>Relacionado: ${relAll.map(o=>`<button class="lnk" data-act="jump" data-id="${o.i}">${esc(short(o.n))} (${dayShort(o.d)} ${o.t})</button>`).join(' · ')}</div>`:''}
+      ${fr.length?`<div>Van: ${fr.map(f=>esc(f.n)).join(', ')}</div>`:''}
+    </div>`;
+  }
+  const pst=opts.past||isPast(e);
+  return `<article class="ev${going?' going':''}${opts.rec&&!going?' rec':''}${pst?' past':''}" id="ev-${e.i}">
+    ${pst?(going?`<span class="go done" title="Estaba en tu ruta" aria-label="Estaba en tu ruta">✓</span>`:'<span class="go ghost" aria-hidden="true"></span>'):`<button class="go" data-act="toggle" data-id="${e.i}" aria-pressed="${going}" aria-label="${going?'Quitar':'Voy a'}: ${esc(e.n)}">✓</button>`}
+    <div>
+      ${opts.rec&&!going?'<span class="ribbon">Mi recomendación</span>':''}
+      <div class="meta"><span>${VEN[e.v]}</span><span>${TY[e.y]}</span>${S.sel[e.i]===2?'<span style="color:var(--accent)">Sugerido</span>':''}</div>
+      <h3>${esc(e.n)}</h3>
+      ${e.s&&!pst?`<p class="why"><b>★ DESTACADO</b> ${esc(e.s)}</p>`:''}
+      ${why&&!pst?`<p class="why">${esc(why)}</p>`:''}
+      ${dp&&!pst&&!dp.best?`<p class="why">Se repite en otro horario, ver detalle.</p>`:''}
+      ${pst&&!going&&score(e)>=thr()&&dp&&dp.all.some(o=>!isPast(o))?`<p class="why again">Te lo perdiste pero se repite: <button class="lnk" data-act="jump" data-id="${dp.all.find(o=>!isPast(o)).i}">${dayShort(dp.all.find(o=>!isPast(o)).d)} ${dp.all.find(o=>!isPast(o)).t}</button></p>`:''}
+      ${fr.length?`<div class="fr">${fr.map(f=>`<span>${esc(f.n)}</span>`).join('')}</div>`:''}
+    </div>
+    <button class="more" data-act="more" data-id="${e.i}" aria-expanded="${open}" aria-label="Detalles">${open?'–':'+'}</button>
+    ${det}
+  </article>`;
+}
+function slotHtml(d,m,list,picks,mode,tag){
+  const th=thr();
+  const past=mode==='past';
+  const ranked=list.slice().sort((a,b)=>past?(!!S.sel[b.i]-!!S.sel[a.i])||a.i-b.i:rank(b)-rank(a)||a.i-b.i);
+  const picked=list.find(e=>S.sel[e.i]);
+  const key=d+'-'+m;
+  const showAll=T.all||T.exp[key];
+  const vis=showAll?ranked:ranked.filter((e,i)=>i<(past?1:2)||S.sel[e.i]);
+  const top=ranked[0];
+  const recOK=!past&&!picked&&rank(top)>=th;
+  let tie='';
+  if(!past&&!picked&&ranked.length>1&&rank(ranked[0])>=th&&rank(ranked[1])>=th&&rank(ranked[0])-rank(ranked[1])<0.6){
+    const ref=picks.filter(p=>p.m+60<=m).pop()||picks.find(p=>p.m>=m+60);
+    const same=ref&&[ranked[0],ranked[1]].find(e=>e.v===ref.v);
+    tie=same?`Casi empate. «${esc(short(same.n))}» queda en la misma sede que tu actividad de las ${ref.t}, así caminas menos.`:'Casi empate. Desempata por el autor o el tema que más te llame.';
+  }
+  let right='';
+  if(past)right=`<span class="tag done">Terminó</span>`;
+  else if(tag)right=tag;
+  else if(picked)right='<span class="st">✓ Elegido</span>';
+  else if(!recOK)right='<span class="note">Nada fuerte para ti: recorre los stands</span>';
+  if(!past&&tag&&picked)right+='<span class="st" style="margin-left:8px">✓</span>';
+  return `<section class="slot${past?' old':''}${mode==='live'?' live':''}" id="slot-${key}">
+    <div class="slothead"><span class="time">${hh(m)}</span><span class="cnt">${list.length===1?'1 opción':list.length+(past?' actividades':' a la vez')}</span>${right}</div>
+    ${tie?`<p class="tie">${tie}</p>`:''}
+    <div class="cards">${vis.map(e=>cardHtml(e,{rec:recOK&&e===top,past})).join('')}</div>
+    ${ranked.length>vis.length?`<button class="showmore" data-act="expslot" data-k="${key}">${past?'Ver lo que hubo':'Ver las otras'} (${ranked.length-vis.length} más) a las ${hh(m)}</button>`:(showAll&&ranked.length>2&&!T.all?`<button class="showmore" data-act="expslot" data-k="${key}">Mostrar menos</button>`:'')}
+  </section>`;
+}
+function slotsHtml(d){
+  const groups={};E.filter(e=>e.d===d&&!e.amb).forEach(e=>{(groups[e.m]=groups[e.m]||[]).push(e)});
+  const ms=Object.keys(groups).map(Number).sort((a,b)=>a-b);
+  const picks=dayPicks(d);
+  const pastMs=ms.filter(m=>groups[m].every(isPast));
+  const upMs=ms.filter(m=>!pastMs.includes(m));
+  if(dayPast(d)){
+    return `<div class="pastnote"><span class="tag done">Terminó</span><span>Este día ya pasó. Aquí puedes ver todo lo que hubo${picks.length?`; tus ${picks.length} elegidas siguen marcadas`:''}.</span></div>`
+      +ms.map(m=>slotHtml(d,m,groups[m],picks,'past')).join('');
+  }
+  let out='';
+  if(pastMs.length){
+    const open=!!T.pastOpen[d];
+    out+=`<button class="pastbox" data-act="pasttoggle" data-d="${d}" aria-expanded="${open}">
+      <span class="tag done">Terminó</span><span class="pt">${pastMs.length} ${pastMs.length===1?'horario':'horarios'} de hoy, de ${hh(pastMs[0])} a ${hh(pastMs[pastMs.length-1]+60)}</span><span class="pv">${open?'Ocultar':'Ver lo que hubo'}</span></button>`;
+    if(open)out+=`<div class="pastlist">${pastMs.map(m=>slotHtml(d,m,groups[m],picks,'past')).join('')}</div>`;
+  }
+  const today=DAYS[d].k===T.now.k;
+  let nextShown=false;
+  upMs.forEach(m=>{
+    let mode='',tag='';
+    if(today){
+      if(m<=T.now.m){mode='live';tag=`<span class="tag live"><i></i>En curso</span>`}
+      else if(!nextShown){nextShown=true;const mins=m-T.now.m;tag=`<span class="tag next">Siguiente · ${mins<60?'en '+mins+' min':'a las '+hh(m)}</span>`}
+    }
+    out+=slotHtml(d,m,groups[m],picks,mode,tag);
+  });
+  if(!upMs.length)out+='<p class="hint" style="margin-top:14px">Ya no quedan actividades hoy. Revisa el día siguiente.</p>';
+  return out;
+}
+function ambHtml(d){
+  return E.filter(e=>e.d===d&&e.amb).map(e=>`<div class="amb"><span><b>Todo el día desde las ${e.t}:</b> ${esc(e.n.replace(/\.$/,''))} · ${VEN[e.v]}</span></div>`).join('');
+}
+function programHtml(){
+  const d=S.day;
+  const nAll=Object.keys(S.sel).length;
+  return prefsHtml()+heatHtml(d)+`
+    <div class="dayhead"><h2>${DAYS[d].f}</h2>
+      <div class="actions">
+      ${dayPicks(d).length?`<button class="btn" data-act="clear" data-d="${d}">Limpiar día</button>`:''}
+      <button class="btn" data-act="expall">${T.all?'Ver menos':'Ver todas las opciones'}</button></div></div>
+    ${summaryHtml(d)}${ambHtml(d)}${slotsHtml(d)}
+    ${d<5?`<button class="btn" style="margin-top:20px;width:100%" data-act="day" data-d="${d+1}">Siguiente: ${DAYS[d+1].f} →</button>`:''}`;
+}
+function planHtml(){
+  const total=Object.keys(S.sel).length;
+  let body='';
+  DAYS.forEach((D,d)=>{
+    const l=dayPicks(d);if(!l.length)return;
+    const g=gaps(l);
+    body+=`<div class="d"><h3>${D.f}</h3>`;
+    l.forEach((e,i)=>{
+      if(i>0){const gp=g.find(x=>x[0]===l[i-1].m+60&&x[1]===e.m);if(gp)body+=`<p class="gap">Libre ${hh(gp[0])}–${hh(gp[1])}</p>`}
+      const fr=S.friends.filter(f=>f.ids.includes(e.i));
+      body+=`<div class="pi"><time>${e.t}</time><div><div class="t">${esc(e.n)}</div><div class="v">${VEN[e.v]}${fr.length?' · con '+fr.map(f=>esc(f.n)).join(', '):''}</div></div></div>`;
+    });
+    body+='</div>';
+  });
+  if(!total)body='<p class="hint" style="margin-top:8px">Aquí verás tu ruta completa. Toca «Armar ruta» y te propongo la mejor combinación.</p><button class="btn pri" style="margin-top:10px" data-act="opensheet">'+IC.route+'Armar ruta</button>';
+  const fl=S.friends.map((f,i)=>{
+    const common=f.ids.filter(id=>S.sel[id]).map(id=>byId[id]).sort((a,b)=>a.d-b.d||a.m-b.m);
+    return `<div class="frow"><span><b>${esc(f.n)}</b>: ${f.ids.length} actividades${common.length?`, coinciden en ${common.length}: ${common.slice(0,3).map(e=>dayShort(e.d)+' '+e.t).join(', ')}${common.length>3?'…':''}`:''}</span><button class="btn sm" data-act="delfriend" data-i="${i}">Quitar</button></div>`}).join('');
+  return `<div class="panel plan"><h2>Mi ruta</h2><p class="summary">${total?`<b>${total}</b> actividades en ${DAYS.filter((_,d)=>dayPicks(d).length).length} días.`:''}</p>
+    ${body}
+    <div class="share">
+      <label for="myname">Tu nombre (para que tus amigos te reconozcan)</label>
+      <input id="myname" value="${esc(S.name)}" placeholder="Ej. Cristopher" maxlength="20" autocomplete="off">
+      <label for="out">Tu ruta para mandar</label>
+      <textarea id="out" readonly>${esc(planText())}</textarea>
+      <div class="actions"><button class="btn pri" data-act="copytxt">Copiar texto para WhatsApp</button>${STANDALONE?'<button class="btn" data-act="copylink">Copiar link de mi ruta</button>':''}<button class="btn" data-act="copycode">Copiar código</button></div>
+      <p class="hint">Si tu amigo también usa esta página, pásale el código. Al pegarlo verá dónde coinciden.</p>
+      <label for="imp">Pegar código de un amigo</label>
+      <textarea id="imp" style="min-height:56px" placeholder="FILCEL1|Ana|…">${esc(T.imp)}</textarea>
+      <div class="actions"><button class="btn" data-act="import">Agregar amigo</button>${total?'<button class="btn" data-act="clearall">Borrar toda mi ruta</button>':''}</div>
+      ${fl}
+    </div></div>`;
+}
+function tabbarHtml(){
+  const n=Object.keys(S.sel).length;
+  return `<button data-act="view" data-v="program" aria-pressed="${T.view!=='plan'}">${IC.list}Programa</button><button data-act="view" data-v="plan" aria-pressed="${T.view==='plan'}">${IC.route}Mi ruta${n?' ('+n+')':''}</button>`;
+}
+function render(keepFocus){
+  document.body.dataset.view=T.view;
+  computeDup();
+  renderDays();
+  document.getElementById('progCol').innerHTML=programHtml();
+  document.getElementById('planCol').innerHTML=planHtml();
+  document.getElementById('tabbar').innerHTML=tabbarHtml();
+  renderSheet();
+}
+
+/* --- eventos --- */
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-act]');if(!b)return;
+  const a=b.dataset.act;
+  if(a==='closesheet'){if(b.classList.contains('scrim')&&ev.target!==b)return;return closeSheet()}
+  if(a==='opensheet')return openSheet();
+  if(a==='theme'){S.theme=S.theme==='dark'?'light':'dark';save();return applyTheme()}
+  if(a==='day'){S.day=+b.dataset.d;save();render();window.scrollTo({top:0});return}
+  if(a==='topic'||a==='fmt'){const arr=a==='topic'?S.interests:S.formats,k=b.dataset.k;const i=arr.indexOf(k);i<0?arr.push(k):arr.splice(i,1);save();return render()}
+  if(a==='mode'){S.mode=b.dataset.k;save();return render()}
+  if(a==='scope'){S.scope=b.dataset.k;save();return render()}
+  if(a==='build'){computeDup();let n=0;
+    if(S.scope==='all'){for(let d=0;d<6;d++)n+=autoDay(d)}else n=autoDay(S.day);
+    save();T.sheet=false;T.view='program';render();window.scrollTo({top:0});
+    const tot=S.scope==='all'?Object.keys(S.sel).length:dayPicks(S.day).length;
+    return toast(tot?(S.scope==='all'?`Ruta lista: ${tot} actividades en la feria`:`Tu ${DAYS[S.day].w.toLowerCase()} ${DAYS[S.day].n}: ${tot} actividades`):'No encontré nada que encaje. Prueba otro tema o el ritmo Maratón')}
+  if(a==='toggle'){toggle(+b.dataset.id);return render()}
+  if(a==='more'){const id=+b.dataset.id;T.open[id]=!T.open[id];return render()}
+  if(a==='expslot'){T.exp[b.dataset.k]=!T.exp[b.dataset.k];return render()}
+  if(a==='pasttoggle'){const d=+b.dataset.d;T.pastOpen[d]=!T.pastOpen[d];return render()}
+  if(a==='expall'){T.all=!T.all;return render()}
+  if(a==='clear'){Object.keys(S.sel).forEach(k=>{if(byId[k].d===+b.dataset.d)delete S.sel[k]});save();return render()}
+  if(a==='clearall'){S.sel={};save();return render()}
+  if(a==='view'){T.view=b.dataset.v;render();window.scrollTo({top:0});return}
+  if(a==='goslot'){const el=document.getElementById('slot-'+b.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(a==='jump'){const e=byId[+b.dataset.id];S.day=e.d;T.open[e.i]=true;T.exp[e.d+'-'+e.m]=true;T.view='program';save();render();const el=document.getElementById('ev-'+e.i);if(el)el.scrollIntoView({block:'center'});return}
+  if(a==='copytxt')return copyText(planText(),'Ruta copiada');
+  if(a==='copylink')return copyText(planLink(),'Link copiado');
+  if(a==='copycode')return copyText(planCode(),'Código copiado');
+  if(a==='import'){const f=parseCode(T.imp);if(!f)return toast('El código no es válido');S.friends=S.friends.filter(x=>x.n!==f.n);S.friends.push(f);T.imp='';save();render();return toast(f.n+' agregado')}
+  if(a==='delfriend'){S.friends.splice(+b.dataset.i,1);save();return render()}
+});
+document.addEventListener('keydown',ev=>{
+  if(!T.sheet)return;
+  if(ev.key==='Escape'){ev.preventDefault();return closeSheet()}
+  if(ev.key==='Tab'){const f=[...document.querySelectorAll('.sheet button')];if(!f.length)return;
+    const first=f[0],last=f[f.length-1];
+    if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus()}
+    else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus()}}
+});
+document.addEventListener('input',ev=>{
+  if(ev.target.id==='myname'){S.name=ev.target.value;save();const o=document.getElementById('out');if(o)o.value=planText()}
+  if(ev.target.id==='imp')T.imp=ev.target.value;
+});
+
+/* --- arranque --- */
+T.now=nowMX();
+(function(){
+  const n=T.now;let d=DAYS.findIndex(x=>x.k===n.k);
+  let seen=false;try{seen=!!localStorage.getItem(KEY+'-seen')}catch(_){}
+  if(S.day===0&&!seen){
+    if(d<0)d=n.k<DAYS[0].k?0:5;
+    else{const left=E.filter(e=>e.d===d&&!e.amb&&!isPast(e)).length;if(left<2&&d<5)d++}
+    S.day=d;
+  }
+  try{localStorage.setItem(KEY+'-seen','1')}catch(_){}
+})();
+applyTheme();
+if(STANDALONE&&/^#ruta=/.test(location.hash)){
+  const f=parseCode(decodeURIComponent(location.hash.slice(6)));
+  if(f&&f.ids.length){S.friends=S.friends.filter(x=>x.n!==f.n);S.friends.push(f);save();setTimeout(()=>toast('Agregué la ruta de '+f.n+'. Verás dónde coinciden'),300)}
+  try{history.replaceState(null,'',location.pathname)}catch(_){}
+}
+render();
+setInterval(()=>{const k=T.now.k,h=Math.floor(T.now.m/60);T.now=nowMX();if(!T.sheet&&(T.now.k!==k||Math.floor(T.now.m/60)!==h))render()},60000);
+</script>
+
+</body>
+</html>
